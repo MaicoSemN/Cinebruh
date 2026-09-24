@@ -63,7 +63,7 @@
   .filters{position:sticky;top:61px;z-index:40;background:var(--bg);border-bottom:3px solid var(--border);padding:12px 0}
   .filters-inner{max-width:1240px;margin:0 auto;padding:0 20px;display:flex;gap:12px 14px;flex-wrap:wrap;align-items:center}
   .pills{display:flex;gap:9px;flex-wrap:wrap}
-  .lang-group{display:flex;align-items:center;gap:7px;margin-left:auto;flex-wrap:wrap}
+  .lang-group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .lang-group .lg-label{font-family:var(--display);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
   .lpill{font-family:var(--display);font-size:13px;background:var(--paper);border:3px solid var(--border);border-radius:999px;padding:6px 13px;cursor:pointer;color:var(--ink);transition:transform .12s,box-shadow .12s;display:flex;align-items:center;gap:6px}
   .lpill:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-sm)}
@@ -120,6 +120,15 @@
   .cap.inc:hover .cap-art{filter:grayscale(.5)}
   .cap-inc{position:absolute;top:8px;right:8px;font-family:var(--display);font-size:10px;letter-spacing:.5px;background:#5a5550;color:#fff;border:2px solid #fff;border-radius:6px;padding:2px 6px}
   .cap-lang{position:absolute;bottom:8px;right:8px;z-index:2;font-family:var(--display);font-size:10px;letter-spacing:.5px;background:rgba(255,255,255,.93);color:#111;border:2px solid #111;border-radius:6px;padding:2px 7px}
+  .cap-badge{position:absolute;top:8px;right:8px;z-index:2;font-family:var(--display);font-size:10px;letter-spacing:.5px;color:#fff;border:2px solid #fff;border-radius:6px;padding:2px 6px}
+  .st-completo{background:#0FA958}
+  .st-assistindo{background:#ff68b4}
+  .st-fila{background:#5a5550}
+  .st-embreve{background:#FF7A00}
+  .cap-open{position:absolute;top:34px;left:8px;z-index:2;font-family:var(--display);font-size:10px;letter-spacing:.5px;background:#F5A623;color:#111;border:2px solid #111;border-radius:6px;padding:2px 7px}
+  .cap.locked{cursor:default}
+  .cap.locked .cap-art{filter:saturate(.8)}
+  .cap.locked.inc .cap-art{filter:grayscale(1) contrast(.95)}
   .empty{text-align:center;padding:60px 20px;color:var(--muted);font-family:var(--display);font-size:20px}
 
   /* ---------- Content bands ---------- */
@@ -225,6 +234,15 @@
       <button class="pill" data-cat="tokusatsu"><span class="ic"></span>Tokusatsu</button>
       <button class="pill" data-cat="animacoes"><span class="ic"></span>Animações</button>
       <button class="pill" data-cat="vods"><span class="ic"></span>VODs</button>
+    </div>
+    <div class="lang-group" id="statuspills">
+      <span class="lg-label">Status</span>
+      <button class="lpill active" data-status="all">Todos</button>
+      <button class="lpill" data-status="completo">Completo</button>
+      <button class="lpill" data-status="assistindo">Assistindo</button>
+      <button class="lpill" data-status="fila">Na fila</button>
+      <button class="lpill" data-status="embreve">Em breve</button>
+      <button class="lpill" data-status="aberto">Em aberto</button>
     </div>
     <div class="lang-group" id="langpills">
       <span class="lg-label">Áudio</span>
@@ -380,6 +398,48 @@ const DATA = [
   {t:"Gameoverse", cat:"animacoes", em:"🕹️", url:F("1YkAKOr4dvnluqjXD28ff4NPks0gJeT8V"), img:"gameoverse.webp"},
   {t:"Yamishibai: Histórias de Terror Japonesas", cat:"animacoes", em:"👺", url:F("1txR0FKs4w0hu5tgVBacKLgH6noi51A6L"), done:true, img:"yamishibai.webp"},
 
+  /* ===== NA FILA / EM BREVE (novos, sem link no Drive ainda) ===== */
+  /* Filmes gravados, faltando subir ao Drive */
+  {t:"O Serviço de Entregas da Kiki", cat:"filmes", em:"🧹", lang:"dub", status:"embreve"},
+  {t:"Suzume", cat:"filmes", em:"🚪", lang:"dub", status:"embreve"},
+  {t:"Gintama: Yoshiwara em Chamas", cat:"filmes", em:"⚔️", lang:"dub", status:"embreve"},
+  {t:"Como Se Fosse a Primeira Vez", cat:"filmes", em:"💑", lang:"dub", status:"embreve"},
+  /* Animes na fila pra começar */
+  {t:"You and I Are Polar Opposites", cat:"animes", em:"❤️", lang:"dub", status:"fila"},
+  {t:"Parede de Gelo", cat:"animes", em:"🧊", lang:"leg", status:"fila"},
+  {t:"Beck: Mongolian Chop Squad", cat:"animes", em:"🎸", lang:"leg", status:"fila"},
+  {t:"Hunter x Hunter", cat:"animes", em:"🎯", lang:"dub", status:"fila"},
+  {t:"The Ancient Magus' Bride", cat:"animes", em:"💍", lang:"dub", status:"fila"},
+  {t:"86: Eighty Six", cat:"animes", em:"🎖️", lang:"dub", status:"fila"},
+  {t:"Buddy Daddies", cat:"animes", em:"👨‍👧", lang:"leg", status:"fila"},
+  {t:"Romantic Killer", cat:"animes", em:"💘", lang:"dub", status:"fila"},
+  {t:"Takt op.Destiny", cat:"animes", em:"🎼", lang:"dub", status:"fila"},
+  {t:"The Rising of the Shield Hero", cat:"animes", em:"🛡️", lang:"dub", status:"fila"},
+  {t:"Jujutsu Kaisen", cat:"animes", em:"👊", lang:"dub", status:"fila"},
+  {t:"Agents of the Four Seasons: Dance of Spring", cat:"animes", em:"🌸", lang:"dub", status:"fila"},
+  {t:"Naruto Clássico", cat:"animes", em:"🍥", lang:"dub", status:"fila"},
+  {t:"Naruto Shippuden", cat:"animes", em:"🍥", lang:"dub", status:"fila"},
+  {t:"Mobile Suit Gundam Thunderbolt", cat:"animes", em:"🤖", lang:"leg", status:"fila"},
+  {t:"Mobile Suit Gundam: The 08th MS Team", cat:"animes", em:"🤖", lang:"leg", status:"fila"},
+  {t:"Mobile Suit Gundam 0080: War in the Pocket", cat:"animes", em:"🤖", lang:"leg", status:"fila"},
+  {t:"Re:Zero", cat:"animes", em:"⏰", lang:"dub", status:"fila"},
+  /* Série / Animação na fila */
+  {t:"Final Space", cat:"animacoes", em:"🚀", lang:"dub", status:"fila"},
+  {t:"Guerreiras do Kpop", cat:"animacoes", em:"🎤", lang:"leg", status:"fila"},
+  /* Filmes na fila pra começar */
+  {t:"Akira", cat:"filmes", em:"🏍️", lang:"dub", status:"fila"},
+  {t:"Sussurros do Coração", cat:"filmes", em:"🎻", lang:"dub", status:"fila"},
+  {t:"Batman (1989)", cat:"filmes", em:"🦇", lang:"leg", status:"fila"},
+  {t:"Matrix", cat:"filmes", em:"💊", lang:"dub", status:"fila"},
+  {t:"O Senhor dos Anéis (Filme 1)", cat:"filmes", em:"💍", lang:"dub", status:"fila", img:"senhor-dos-aneis-movie-1.webp"},
+  {t:"O Senhor dos Anéis (Filme 2)", cat:"filmes", em:"💍", lang:"dub", status:"fila", img:"senhor-dos-aneis-movie-2.webp"},
+  {t:"O Senhor dos Anéis (Filme 3)", cat:"filmes", em:"💍", lang:"dub", status:"fila", img:"senhor-dos-aneis-movie-3.webp"},
+  {t:"Mobile Suit Gundam (Filme 1)", cat:"filmes", em:"🤖", lang:"leg", status:"fila", img:"gundam-movie-1.webp"},
+  {t:"Mobile Suit Gundam (Filme 2)", cat:"filmes", em:"🤖", lang:"leg", status:"fila", img:"gundam-movie-2.webp"},
+  {t:"Mobile Suit Gundam (Filme 3)", cat:"filmes", em:"🤖", lang:"leg", status:"fila", img:"gundam-movie-3.webp"},
+  {t:"Mobile Suit Gundam: Char Contra-Ataca", cat:"filmes", em:"🤖", lang:"leg", status:"fila"},
+  {t:"Jujutsu Kaisen 0", cat:"filmes", em:"👊", lang:"dub", status:"fila"},
+
   /* ===== VODS ===== */
   {t:"Live de Aniversário de 26 Anos", cat:"vods", em:"🎂", url:V("1Y7iox9XQ6ILeOZ9GvcS9YDwUOSQQak-2")},
   {t:"IRL no Matsuri Festival", cat:"vods", em:"🏮", url:V("110YtZ24SZmOXJBqQyaQgw09zj8fNIAHE")},
@@ -406,15 +466,52 @@ const LANG_MAP = {
   "Yamishibai: Histórias de Terror Japonesas":"leg",
 };
 
+const ABERTO = new Set([
+  "Smoking Behind the Supermarket with You","Haikyu!!","NIPPON SANGOKU","One Piece","Gachiakuta",
+  "Noragami","Welcome to Demon School! Iruma-kun","Blue Box","Fate Zero","Konosuba",
+  "Life Lessons with Uramichi Oniisan","Rooster Fighter","You and I Are Polar Opposites",
+  "Parede de Gelo","Wistoria: Wand and Sword","La Casa de Papel","Invencível",
+  "The Amazing Digital Circus","Gameoverse",
+]);
+
+const IMG_MAP = {
+  "O Serviço de Entregas da Kiki":"kiki.webp","Suzume":"suzume.webp",
+  "Gintama: Yoshiwara em Chamas":"gintama-yoshiwara.webp","Como Se Fosse a Primeira Vez":"como-se-fosse-a-primeira-vez.webp",
+  "You and I Are Polar Opposites":"you-and-i-are-polar-opposites.webp","Parede de Gelo":"parede-de-gelo.webp",
+  "Beck: Mongolian Chop Squad":"beck.webp","Hunter x Hunter":"hunter-x-hunter.webp",
+  "The Ancient Magus' Bride":"ancient-magus-bride.webp","86: Eighty Six":"86-eighty-six.webp",
+  "Buddy Daddies":"buddy-daddies.webp","Romantic Killer":"romantic-killer.webp",
+  "Takt op.Destiny":"takt-op-destiny.webp","The Rising of the Shield Hero":"shield-hero.webp",
+  "Jujutsu Kaisen":"jujutsu-kaisen.webp","Agents of the Four Seasons: Dance of Spring":"agents-four-seasons.webp",
+  "Naruto Clássico":"naruto-classico.webp","Naruto Shippuden":"naruto-shippuden.webp",
+  "Mobile Suit Gundam Thunderbolt":"gundam-thunderbolt.webp","Mobile Suit Gundam: The 08th MS Team":"gundam-08th-ms-team.webp",
+  "Mobile Suit Gundam 0080: War in the Pocket":"gundam-0080.webp","Re:Zero":"re-zero.webp",
+  "Final Space":"final-space.webp","Guerreiras do Kpop":"guerreiras-do-kpop.webp",
+  "Akira":"akira.webp","Sussurros do Coração":"sussurros-do-coracao.webp","Batman (1989)":"batman-1989.webp",
+  "Matrix":"matrix.webp","Mobile Suit Gundam: Char Contra-Ataca":"gundam-char-contra-ataca.webp",
+  "Jujutsu Kaisen 0":"jujutsu-kaisen-0.webp",
+};
+
 const main = document.getElementById('main');
 const searchEl = document.getElementById('search');
-let activeCat = 'todos', activeLang = 'all', query = '';
+let activeCat = 'todos', activeLang = 'all', activeStatus = 'all', query = '';
 
 document.getElementById('s-titles').textContent = DATA.length;
-document.getElementById('s-done').textContent = DATA.filter(d=>d.done).length;
+document.getElementById('s-done').textContent = DATA.filter(d=>statusOf(d)==='completo').length;
 
+function statusOf(it){
+  if(it.status) return it.status;
+  if(it.incomplete) return 'fila';
+  if(it.cat==='filmes' || it.cat==='vods') return 'completo';
+  if(it.done) return 'completo';
+  return 'assistindo';
+}
 function matches(it){
   if(activeCat!=='todos' && it.cat!==activeCat) return false;
+  if(activeStatus!=='all'){
+    if(activeStatus==='aberto'){ if(!ABERTO.has(it.t)) return false; }
+    else if(statusOf(it)!==activeStatus) return false;
+  }
   if(activeLang!=='all'){
     const lg = it.lang || LANG_MAP[it.t];
     if(!lg) return false;
@@ -426,23 +523,29 @@ function matches(it){
 
 function capHTML(it, i){
   const g = CAT_GRADS[it.cat][i % CAT_GRADS[it.cat].length];
-  const badge = it.incomplete ? `<span class="cap-inc">Sem reação</span>`
-              : it.done ? `<span class="cap-done">✓ Completo</span>` : '';
+  const st = statusOf(it);
+  const ST = {completo:["✓ Completo","st-completo"], assistindo:["Assistindo","st-assistindo"], fila:["Na fila","st-fila"], embreve:["Em breve","st-embreve"]};
+  const badge = `<span class="cap-badge ${ST[st][1]}">${ST[st][0]}</span>`;
+  const open = ABERTO.has(it.t) ? `<span class="cap-open">Em aberto</span>` : '';
   const LANG = {dub:"🎙️ Dub", leg:"💬 Leg", both:"Dub + Leg"};
-  const lg = it.lang || LANG_MAP[it.t];
-  const lang = lg ? `<span class="cap-lang">${LANG[lg]}</span>` : '';
-  const art = it.img ? `<img src="images/${it.img}" alt="${it.t}" loading="lazy">`
-                     : `<span class="em">${it.em}</span>`;
-  return `
-    <a class="cap${it.incomplete?' inc':''}" href="${it.url}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i*30,360)}ms">
+  const lgv = it.lang || LANG_MAP[it.t];
+  const lang = lgv ? `<span class="cap-lang">${LANG[lgv]}</span>` : '';
+  const imgFile = it.img || IMG_MAP[it.t];
+  const art = `<span class="em">${it.em}</span>` + (imgFile ? `<img src="images/${imgFile}" alt="${it.t}" loading="lazy" onerror="this.remove()">` : '');
+  const hover = it.url ? (it.cat==='vods'?'▶ Assistir':'▶ Ver reações') : (st==='embreve'?'Em breve':'Na fila');
+  const inner = `
       <div class="cap-art" style="--c1:${g[0]};--c2:${g[1]}">
         ${art}
         <span class="cap-cat">${CAT_LABEL[it.cat]}</span>
-        ${badge}${lang}
+        ${badge}${open}${lang}
         <div class="cap-scrim"><div class="cap-title">${it.t}</div></div>
-        <div class="cap-hover"><span>${it.cat==='vods'?'▶ Assistir':'▶ Ver reações'}</span></div>
-      </div>
-    </a>`;
+        <div class="cap-hover"><span>${hover}</span></div>
+      </div>`;
+  const cls = `cap${it.incomplete?' inc':''}${it.url?'':' locked'}`;
+  const style = `style="animation-delay:${Math.min(i*30,360)}ms"`;
+  return it.url
+    ? `<a class="${cls}" href="${it.url}" target="_blank" rel="noopener" ${style}>${inner}</a>`
+    : `<div class="${cls}" ${style}>${inner}</div>`;
 }
 
 function render(){
@@ -466,12 +569,17 @@ function render(){
 
 document.getElementById('pills').addEventListener('click', e=>{
   const btn = e.target.closest('.pill'); if(!btn) return;
-  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#pills .pill').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active'); activeCat = btn.dataset.cat; render();
+});
+document.getElementById('statuspills').addEventListener('click', e=>{
+  const btn = e.target.closest('.lpill'); if(!btn) return;
+  document.querySelectorAll('#statuspills .lpill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active'); activeStatus = btn.dataset.status; render();
 });
 document.getElementById('langpills').addEventListener('click', e=>{
   const btn = e.target.closest('.lpill'); if(!btn) return;
-  document.querySelectorAll('.lpill').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#langpills .lpill').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active'); activeLang = btn.dataset.lang; render();
 });
 searchEl.addEventListener('input', e=>{ query = e.target.value.trim(); render(); });
